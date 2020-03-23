@@ -63,4 +63,5 @@ export const CheckBox = Styled.span`
 export const Label = Styled.span`
   color: #8892B3;
   margin-left: 8px;
+  text-decoration: ${(props) => (props.checked ? 'line-through' : 'none')};
 `;

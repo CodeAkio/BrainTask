@@ -1,10 +1,11 @@
 'use strict'
 
 const Task = use('App/Models/Task')
+const Database = use('Database')
 
 class TaskController {
   async index ({ request, response }) {
-    const tasks = await Task.all()
+    const tasks = await Database.table('tasks').orderBy('id')
 
     return tasks
   }
