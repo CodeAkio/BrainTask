@@ -88,7 +88,7 @@ export const CheckBox = Styled.button`
   width: 16px;
   height: 16px;
   border: 1px solid ${(props) => (props.checked ? '#FF6184' : '#8892B3')};
-  border-radius: 6px;
+  border-radius: 4px;
   background: ${(props) => (props.checked ? '#FF6184' : '#fff')};
 `;
 
