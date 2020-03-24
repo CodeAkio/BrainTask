@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { MdDone } from 'react-icons/md';
+
+import { MdDone, MdAdd } from 'react-icons/md';
+import { Form, Input } from '@rocketseat/unform';
 import GlobalStyle from './styles/global';
 
 import api from './services/api';
@@ -7,12 +9,14 @@ import {
   NavBar,
   Main,
   Content,
+  SubmitButton,
   Card,
   Tasks,
   Task,
   CheckBox,
   Label,
 } from './styles';
+import logo from './assets/img/anterior-part.png';
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -35,16 +39,32 @@ function App() {
     loadTaks();
   }
 
+  async function handleSubmit(data, { resetForm }) {
+    await api.post('/tasks', data);
+
+    if (data) {
+      resetForm();
+      loadTaks();
+    }
+  }
+
   return (
     <>
       <GlobalStyle />
       <NavBar>
         <nav>
+          <img src={logo} alt="BrainTask" />
           <span>Brain Task</span>
         </nav>
       </NavBar>
       <Main>
         <Content>
+          <Form onSubmit={handleSubmit}>
+            <SubmitButton type="submit">
+              <MdAdd color="#fff" size={28} />
+            </SubmitButton>
+            <Input name="description" placeholder="Nova tarefa" />
+          </Form>
           <Card>
             <Tasks>
               {tasks.map((task) => (
