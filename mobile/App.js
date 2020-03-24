@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StatusBar, TouchableOpacity } from 'react-native';
+import {
+  SafeAreaView,
+  StatusBar,
+  TouchableOpacity,
+  Platform,
+  ActivityIndicator,
+} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import './config/ReactotronConfig';
@@ -9,6 +15,10 @@ import {
   Header,
   Title,
   Main,
+  Form,
+  SubmitButton,
+  InputShape,
+  Input,
   Card,
   Tasks,
   Task,
@@ -19,6 +29,8 @@ import {
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
+  const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState(false);
 
   async function loadTaks() {
     const response = await api.get('/tasks');
@@ -38,14 +50,20 @@ export default function App() {
     loadTaks();
   }
 
-  // async function handleSubmit(data) {
-  //   await api.post('/tasks', data);
+  async function handleSubmit() {
+    setLoading(true);
 
-  //   if (data) {
-  //     // resetForm();
-  //     loadTaks();
-  //   }
-  // }
+    if (!description) {
+      setDescription(false);
+      return;
+    }
+
+    await api.post('/tasks', { description });
+
+    setDescription('');
+    setLoading(false);
+    loadTaks();
+  }
 
   return (
     <Container>
@@ -55,6 +73,27 @@ export default function App() {
         </SafeAreaView>
       </Header>
       <Main>
+        <Form>
+          <TouchableOpacity onPress={handleSubmit}>
+            <SubmitButton>
+              {loading ? (
+                <ActivityIndicator size="small" color="#FFF" />
+              ) : (
+                <MaterialIcons name="add" size={22} color="#fff" />
+              )}
+            </SubmitButton>
+          </TouchableOpacity>
+          <InputShape>
+            <Input
+              autoCorrect={false}
+              placeholder="Nova tarefa"
+              returnKeyType="send"
+              onSubmitEditing={handleSubmit}
+              value={description}
+              onChangeText={setDescription}
+            />
+          </InputShape>
+        </Form>
         <Card>
           <Tasks
             data={tasks}
@@ -78,5 +117,8 @@ export default function App() {
   );
 }
 
-StatusBar.setBackgroundColor('#FF6184');
+if (Platform === 'android') {
+  StatusBar.setBackgroundColor('#FF6184');
+}
+
 StatusBar.setBarStyle('light-content');
