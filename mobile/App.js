@@ -1,19 +1,19 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import { SafeAreaView, StatusBar } from 'react-native';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+import { Container, Header, Title } from './styles';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Brain Task</Text>
-    </View>
+    <Container>
+      <Header>
+        <SafeAreaView>
+          <Title>Brain Task</Title>
+        </SafeAreaView>
+      </Header>
+    </Container>
   );
 }
+
+StatusBar.setBackgroundColor('#FF6184');
+StatusBar.setBarStyle('light-content');
