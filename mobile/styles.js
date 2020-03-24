@@ -55,4 +55,5 @@ export const ContainerLabel = Styled.View`
 export const Label = Styled.Text`
   color: #8892B3;
   text-decoration: ${(props) => (props.checked ? 'line-through' : 'none')};
+  text-decoration-color: #8892B3;
 `;
