@@ -42,5 +42,6 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-underscore-dangle': 'off',
     camelcase: 'off',
+    'no-console': ["error", { allow: ["tron"] }],
   },
 };
