@@ -63,6 +63,7 @@ export const SubmitButton = Styled.button`
   justify-content: center;
   height: 56px;
   width: 56px;
+  border: 0;
   border-radius: 6px;
   background: #FF6184;
 `;
