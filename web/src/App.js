@@ -21,14 +21,14 @@ import logo from './assets/img/anterior-part.png';
 function App() {
   const [tasks, setTasks] = useState([]);
 
-  async function loadTaks() {
+  async function loadTasks() {
     const response = await api.get('/tasks');
 
     setTasks(response.data);
   }
 
   useEffect(() => {
-    loadTaks();
+    loadTasks();
   }, []);
 
   async function handleChecked(task) {
@@ -36,7 +36,7 @@ function App() {
       checked: !task.checked,
     });
 
-    loadTaks();
+    loadTasks();
   }
 
   async function handleSubmit(data, { resetForm }) {
@@ -44,14 +44,14 @@ function App() {
 
     if (data) {
       resetForm();
-      loadTaks();
+      loadTasks();
     }
   }
 
   async function handleDelete(id) {
     await api.delete(`/tasks/${id}`);
 
-    loadTaks();
+    loadTasks();
   }
 
   return (
