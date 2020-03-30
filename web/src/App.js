@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { MdDone, MdAdd } from 'react-icons/md';
+import { MdDone, MdAdd, MdDeleteForever } from 'react-icons/md';
 import { Form, Input } from '@rocketseat/unform';
 import GlobalStyle from './styles/global';
 
@@ -48,6 +48,12 @@ function App() {
     }
   }
 
+  async function handleDelete(id) {
+    await api.delete(`/tasks/${id}`);
+
+    loadTaks();
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -69,13 +75,18 @@ function App() {
             <Tasks>
               {tasks.map((task) => (
                 <Task key={String(task.id)}>
-                  <CheckBox
-                    checked={task.checked}
-                    onClick={() => handleChecked(task)}
-                  >
-                    <MdDone color="#fff" size={10} />
-                  </CheckBox>
-                  <Label checked={task.checked}>{task.description}</Label>
+                  <span>
+                    <CheckBox
+                      checked={task.checked}
+                      onClick={() => handleChecked(task)}
+                    >
+                      <MdDone color="#fff" size={10} />
+                    </CheckBox>
+                    <Label checked={task.checked}>{task.description}</Label>
+                  </span>
+                  <span onClick={() => handleDelete(task.id)}>
+                    <MdDeleteForever color="#FF6184" size={20} />
+                  </span>
                 </Task>
               ))}
             </Tasks>

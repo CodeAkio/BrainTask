@@ -79,7 +79,18 @@ export const Tasks = Styled.ul``;
 export const Task = Styled.li`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin: 8px 0;
+  transition: opacity 0.3s;
+
+  span {
+    display: flex;
+    align-items: center;
+  }
+
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 export const CheckBox = Styled.button`

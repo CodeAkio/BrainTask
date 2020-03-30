@@ -36,6 +36,22 @@ class TaskController {
       })
     }
   }
+
+  async delete ({ params, response }) {
+    try {
+      const task = await Task.findOrFail(params.id)
+
+      await task.delete()
+
+      return response.status(204).send()
+    } catch (error) {
+      return response.status(error.status).send({
+        error: {
+          message: 'Não foi possível deletar a tarefa'
+        }
+      })
+    }
+  }
 }
 
 module.exports = TaskController
