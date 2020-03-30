@@ -29,7 +29,7 @@ function App() {
 
   useEffect(() => {
     loadTaks();
-  });
+  }, []);
 
   async function handleChecked(task) {
     await api.put(`/tasks/${task.id}`, {
